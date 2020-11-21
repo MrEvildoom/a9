@@ -1,0 +1,14 @@
+stcychn@valdes:code$ time ./sRead 10
+real    0m0.114s
+
+stcychn@valdes:code$ time ./sRead 100
+real    0m1.100s
+
+stcychn@valdes:code$ time ./sRead 1000
+real    0m11.001s
+
+stcychn@valdes:code$ time ./sRead 10000
+real    1m49.892s
+
+
+The simulated disk has a fixed read latency of 0.01 seconds per read. The actual time per read is ~.011 seconds. Therefore, it seems like the program does one read, waits for the read to complete, then does about .001 seconds of processing.

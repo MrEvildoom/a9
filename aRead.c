@@ -19,6 +19,8 @@ void interrupt_service_routine () {
 }
 
 void handle_read (void* resultv, void* not_used) {
+  sum += *(int*) resultv;
+  // printf("\n%d", *(int*) resultv);
   // TODO add result to sum
 }
 
@@ -48,6 +50,17 @@ int main (int argc, char** argv) {
 
   // Sum Blocks
   // TODO
+  int result;
+  for (int blockno = 0; blockno < num_blocks; blockno++) {
+    void* callback;
+    if (blockno == num_blocks - 1) {
+      callback = *handle_read_and_exit;
+    } else {
+      callback = *handle_read;
+    }
+    disk_schedule_read (&result, blockno);
+    queue_enqueue(pending_read_queue, &result, NULL, callback);
+  }
   while (1); // inifinite loop so that main doesn't return before all of the reads complete
 }
 
