@@ -1,0 +1,17 @@
+jpheidal@thetis:a9$ time ./aRead 10
+207
+real	0m0.013s
+
+jpheidal@thetis:a9$ time ./sRead 10
+207
+real	0m0.114s
+
+jpheidal@thetis:a9$ time ./aRead 10000
+161577
+real	0m0.043s
+
+jpheidal@thetis:a9$ time ./sRead 10000
+161577
+real	1m49.635s
+
+Obviously, aRead runs much faster than sRead. This is because aRead takes advantages of being able to do disk_reads in parallel, so while the disk is reading it can sum previous reads or queue up new ones. sRead has to do reads one at a time, so every 10ms read is 10ms the processor can't do anything else.
