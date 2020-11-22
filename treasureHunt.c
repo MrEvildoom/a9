@@ -12,11 +12,6 @@ int areyoudoneyet;
 
 void interrupt_service_routine() {
   // TODO
-  // void* val;
-  // void* count;
-  // void (*callback)(void*,void*);
-  // queue_dequeue (pending_read_queue, &val, &count, &callback);
-  // callback (val, count);
   // printf("\n made it to ISR");
   areyoudoneyet = 0;
 }
@@ -26,7 +21,7 @@ void interrupt_service_routine() {
 
 void handleOtherReads (void* resultv, void* countv) {
   // TODO
-  if (countv == 0) {
+  if (*(int*) countv == 0) {
     printf("\n%d", *(int*) resultv);
     free(resultv);
     free(countv);
@@ -41,6 +36,7 @@ void handleOtherReads (void* resultv, void* countv) {
     handleOtherReads(resultv, countv);
   }
 }
+  
 
 void handleFirstRead (void* resultv, void* countv) { 
   // both resultv and countv = address of starting block number
@@ -53,8 +49,8 @@ void handleFirstRead (void* resultv, void* countv) {
     // printf("\nvalue of areyoudoneyet: %d", areyoudoneyet);
     // printf("\nvalue of next add after ISR handlefirstread: %d", *(int*) nextadd);
   }
-  printf("\nvalue of areyoudoneyet: %d", areyoudoneyet);
-  printf("\nvalue of next add after ISR handlefirstread: %d", *(int*) nextadd);
+  // printf("\nvalue of areyoudoneyet: %d", areyoudoneyet);
+  // printf("\nvalue of next add after ISR handlefirstread: %d", *(int*) nextadd);
   *counter = *nextadd;
   handleOtherReads(nextadd, counter);
 }

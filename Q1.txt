@@ -19,4 +19,4 @@ user    0m10.998s
 sys     0m0.000s
 
 
-The simulated disk has a fixed read latency of 0.01 seconds per read. The actual time per read is ~.011 seconds. Therefore, it seems like the program does one read, waits for the read to complete, then does about .001 seconds of processing. The real time increases roughly linearly with the number of reads because we have to wait for each read to complete before doing the next read. Therefore, if the number of reads is increased by a multiple of 10, then so is the total real runtime.
+The simulated disk has a fixed read latency of 0.01 seconds per read. The actual time per read is ~.011 seconds. Therefore, it seems like the program does one read, waits for the read to complete, then does about .001 seconds of processing. The real time increases roughly linearly with the number of reads because we have to wait for each read to complete before doing the next read (not able to run reads in parallel). Therefore, when the number of reads is increased by a multiple of 10, then so is the total real runtime.

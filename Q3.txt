@@ -29,4 +29,4 @@ real    0m0.061s
 sys     0m0.040s
 
 
-The real runtime for tRead is slower than that of aRead, which can be partially explained by the longer sys times. This may be explained by the fact that tRead has two for loops, while aRead only has one. tRead is still much faster than sRead though, since it's multiple threads give it the advantage of parallelism.
+The real runtime for tRead is slower than that of aRead, which can be partially explained by the longer sys times. This may be explained by the fact that tRead has two for loops, while aRead only has one. tRead is still much faster than sRead though, since its multiple threads give it the advantage of parallelism.
