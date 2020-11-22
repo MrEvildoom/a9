@@ -1,14 +1,22 @@
-stcychn@valdes:code$ time ./sRead 10
-real    0m0.114s
+stcychn@valdes:a9$ time ./sRead 10
+207
 
-stcychn@valdes:code$ time ./sRead 100
-real    0m1.100s
+real    0m0.115s
+user    0m0.113s
+sys     0m0.000s
+stcychn@valdes:a9$ time ./sRead 100
+1644
 
-stcychn@valdes:code$ time ./sRead 1000
-real    0m11.001s
+real    0m1.104s
+user    0m1.095s
+sys     0m0.004s
 
-stcychn@valdes:code$ time ./sRead 10000
-real    1m49.892s
+stcychn@valdes:a9$ time ./sRead 1000
+16193
+
+real    0m11.004s
+user    0m10.998s
+sys     0m0.000s
 
 
-The simulated disk has a fixed read latency of 0.01 seconds per read. The actual time per read is ~.011 seconds. Therefore, it seems like the program does one read, waits for the read to complete, then does about .001 seconds of processing.
+The simulated disk has a fixed read latency of 0.01 seconds per read. The actual time per read is ~.011 seconds. Therefore, it seems like the program does one read, waits for the read to complete, then does about .001 seconds of processing. The real time increases roughly linearly with the number of reads because we have to wait for each read to complete before doing the next read. Therefore, if the number of reads is increased by a multiple of 10, then so is the total real runtime.
