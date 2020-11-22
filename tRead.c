@@ -14,7 +14,8 @@ unsigned int sum = 0;
 void interrupt_service_routine () {
   // TODO
   uthread_t pendingReadwaitingThread;
-  queue_dequeue(pending_read_queue, &pendingReadwaitingThread, NULL, NULL);
+  void* pendingReadingWaitingThreadv = &pendingReadwaitingThread;
+  queue_dequeue(pending_read_queue, pendingReadingWaitingThreadv, NULL, NULL);
   uthread_unblock (pendingReadwaitingThread);
 }
 

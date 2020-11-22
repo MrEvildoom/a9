@@ -11,8 +11,6 @@ queue_t pending_read_queue;
 int areyoudoneyet;
 
 void interrupt_service_routine() {
-  // TODO
-  // printf("\n made it to ISR");
   areyoudoneyet = 0;
 }
 
@@ -20,9 +18,8 @@ void interrupt_service_routine() {
 
 
 void handleOtherReads (void* resultv, void* countv) {
-  // TODO
   if (*(int*) countv == 0) {
-    printf("\n%d", *(int*) resultv);
+    printf("%d \n", *(int*) resultv);
     free(resultv);
     free(countv);
     exit (EXIT_SUCCESS);
@@ -30,7 +27,6 @@ void handleOtherReads (void* resultv, void* countv) {
     areyoudoneyet = 1;
     disk_schedule_read(resultv, *(int*) resultv);
     while (areyoudoneyet == 1) {
-      // do nothing... just wait until ISR sets it to 0
     }
     *(int*) countv = *(int*) countv - 1;
     handleOtherReads(resultv, countv);
@@ -39,18 +35,12 @@ void handleOtherReads (void* resultv, void* countv) {
   
 
 void handleFirstRead (void* resultv, void* countv) { 
-  // both resultv and countv = address of starting block number
   areyoudoneyet = 1;
-  int* counter = malloc(sizeof(int)); // the number of reads we have to do
-  int* nextadd = malloc(sizeof(int)); // the address of next block to read
+  int* counter = malloc(sizeof(int)); 
+  int* nextadd = malloc(sizeof(int)); 
   disk_schedule_read(nextadd, *(int*) resultv);
   while (areyoudoneyet == 1) {
-    // do nothing... just wait until ISR sets it to 0... then you know counter has been updated.
-    // printf("\nvalue of areyoudoneyet: %d", areyoudoneyet);
-    // printf("\nvalue of next add after ISR handlefirstread: %d", *(int*) nextadd);
   }
-  // printf("\nvalue of areyoudoneyet: %d", areyoudoneyet);
-  // printf("\nvalue of next add after ISR handlefirstread: %d", *(int*) nextadd);
   *counter = *nextadd;
   handleOtherReads(nextadd, counter);
 }
@@ -74,7 +64,6 @@ int main (int argc, char** argv) {
 
 
   // Start the Hunt
-  // TODO
   handleFirstRead(&starting_block_number, &starting_block_number);
-  while (1); // inifinite loop so that main doesn't return before hunt completes
+  while (1); 
 }
